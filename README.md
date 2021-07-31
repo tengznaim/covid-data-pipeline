@@ -52,6 +52,7 @@ docker-compose down
    - Note that I believe this isn't the best file structure where both the tasks and the DAG file are in the same directory. However, for this purpose, it simplified the process of importing the functions.
 
 - The final result of the database:
+
   ![image](https://user-images.githubusercontent.com/63803360/127737058-782e6302-fc87-47fa-8582-2af863ff2c45.png)
 
 ## References
