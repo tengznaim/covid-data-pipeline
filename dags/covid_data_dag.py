@@ -7,7 +7,7 @@ from covid_tasks import extract_data, load_to_database
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2021, 1, 1),
+    'start_date': datetime(2021, 7, 30),
     'email': ['airflow@example.com'],
     'email_on_failure': False,
     'email_on_retry': False,
@@ -20,7 +20,7 @@ dag = DAG(
     default_args=default_args,
     description="A DAG that extracts COVID data from the public MKN repository, computes a case to death ratio and stores it in a MySQL database",
     schedule_interval=timedelta(days=1),
-    catchup=False
+    catchup=False,
 )
 
 t1 = PythonOperator(

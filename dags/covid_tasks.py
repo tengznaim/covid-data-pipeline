@@ -2,7 +2,7 @@ import mysql.connector
 import pandas as pd
 import numpy as np
 from datetime import date
-from configparser import ConfigParser
+# from configparser import ConfigParser
 
 
 def extract_data():
@@ -33,14 +33,19 @@ def extract_data():
 
 def load_to_database():
 
-    config = ConfigParser()
-    config.read("db_creds.cfg")
+    # config = ConfigParser()
+    # config.read("db_creds.cfg")
 
     db = mysql.connector.connect(
-        host=config.get("mysql-remote", "MYSQL_Host"),
-        user=config.get("mysql-remote", "MYSQL_User"),
-        password=config.get("mysql-remote", "MYSQL_Password"),
-        database=config.get("mysql-remote", "MYSQL_Database"),
+        # host=config.get("mysql-remote", "MYSQL_Host"),
+        # user=config.get("mysql-remote", "MYSQL_User"),
+        # password=config.get("mysql-remote", "MYSQL_Password"),
+        # database=config.get("mysql-remote", "MYSQL_Database"),
+
+        host="INSERT_HOST",
+        user="INSERT_USER",
+        password="INSERT_PASSWORD",
+        database="INSERT_DB",
     )
 
     # The cursor is an object used to make a connection for executing SQL queries.
@@ -54,6 +59,7 @@ def load_to_database():
             line = line.replace("\n", "")
             values = line.split(",")[1:]
 
+            # Note that this table name is not fixed and is dependent on current use.
             insert_query = """
                 INSERT IGNORE INTO covid_data
                 VALUES ('{}', '{}', '{}', '{}')

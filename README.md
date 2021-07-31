@@ -46,14 +46,18 @@ docker-compose down
 1. I first used a Jupyter notebook `exploration.ipynb` to explore the data and identify the columns I wanted. I also used this to test the computation of the case-to-test ratio data that I wanted to have.
 2. Once I had identified how I wanted the data to look like and the process required, I converted the steps into a function `extract_data()` in `covid_tasks.py`. This function exports the final data in the form of a .csv file.
 3. The other function in `covid_tasks.py` is `load_to_database()` which establishes a connection to a MySQL database and stores the data in a table.
-   - Note that at the moment, this inserts every single data in the csv file to the database and would hence not work the second time this is run. A better method would probably be to only add the new data to the database.
    - The function also works with local databases but when turned into a DAG, it is unable to establish a connection with the database.
-4. With these functions set up, they are then imported into the `covid_data_dag.py` where the Directed Acyclic Graph (DAG) is set up for this simple workflow. The PythonOperator is used to execute these function.
+4. With these functions set up, they are then imported into the `covid_data_dag.py` where the Directed Acyclic Graph (DAG) is set up for this simple workflow. The PythonOperator is used to execute these functions.
    - Note that I believe this isn't the best file structure where both the tasks and the DAG file are in the same directory. However, for this purpose, it simplified the process of importing the functions.
 
 - The final result of the database:
 
   ![image](https://user-images.githubusercontent.com/63803360/127737058-782e6302-fc87-47fa-8582-2af863ff2c45.png)
+
+## Caveats
+
+1. At the moment, the `load_to_database()` inserts every single data in the csv file to the database each time it is run, going over duplicate entries. A better method would probably be to only add new data to the database.
+2. ConfigParser as a method to hide configurations is temporarily disabled as it causes issues when used in Airflow (it works when just testing the functions).
 
 ## References
 
