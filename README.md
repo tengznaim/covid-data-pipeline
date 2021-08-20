@@ -57,7 +57,9 @@ docker-compose down
 ## Caveats
 
 1. At the moment, the `load_to_database()` inserts every single data in the csv file to the database each time it is run, going over duplicate entries. A better method would probably be to only add new data to the database.
-2. ConfigParser as a method to hide configurations is temporarily disabled as it causes issues when used in Airflow (it works when just testing the functions).
+2. ~~ConfigParser as a method to hide configurations is temporarily disabled as it causes issues when used in Airflow (it works when just testing the functions).~~
+   > **Update:** I found what I believe to be a better implementation in establishing a connection to the database in Airflow connections itself and later referencing the variables back in the tasks using BaseHook.get_connection()
+   > https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/hooks/base/index.html
 
 ## References
 
@@ -70,4 +72,13 @@ docker-compose down
    - https://www.youtube.com/watch?v=aTaytcxy2Ck
 
 3. Idea for this mini project.
+
    - https://python.plainenglish.io/simple-etl-with-airflow-372b0109549
+
+4. Airflow MySQL connection set up.
+
+   - https://airflow.apache.org/docs/apache-airflow-providers-mysql/stable/connections/mysql.html
+
+5. Referencing the connection in the DAG/tasks.
+
+   - https://stackoverflow.com/questions/45280650/store-and-access-password-using-apache-airflow

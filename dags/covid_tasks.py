@@ -2,7 +2,9 @@ import mysql.connector
 import pandas as pd
 import numpy as np
 from datetime import date
-# from configparser import ConfigParser
+from airflow.hooks.base import BaseHook
+
+db_connection = BaseHook.get_connection("mysql_conn")
 
 
 def extract_data():
@@ -33,19 +35,11 @@ def extract_data():
 
 def load_to_database():
 
-    # config = ConfigParser()
-    # config.read("db_creds.cfg")
-
     db = mysql.connector.connect(
-        # host=config.get("mysql-remote", "MYSQL_Host"),
-        # user=config.get("mysql-remote", "MYSQL_User"),
-        # password=config.get("mysql-remote", "MYSQL_Password"),
-        # database=config.get("mysql-remote", "MYSQL_Database"),
-
-        host="INSERT_HOST",
-        user="INSERT_USER",
-        password="INSERT_PASSWORD",
-        database="INSERT_DB",
+        host=db_connection.host,
+        user=db_connection.login,
+        password=db_connection.password,
+        database=db_connection.schema
     )
 
     # The cursor is an object used to make a connection for executing SQL queries.
